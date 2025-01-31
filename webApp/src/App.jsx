@@ -6,7 +6,7 @@ import Comment from './pages/Comment';
 
 function App() {
   return (
-    <div className="h-screen">
+    <div className="h-screen text-black dark:bg-black dark:text-white">
       <Router>
         <Routes>
           <Route path='/' element={<Navigate to="/login" />} />
