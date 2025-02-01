@@ -19,12 +19,12 @@ const Sidebar = () => {
         <h2 className="text-3xl font-bold" style={{ fontFamily: "'Lucida Handwriting', cursive" }}>Last Blogger</h2>
 
         <div className="flex flex-col gap-10 justify-center items-start mt-20">
-          <div className="flex items-center gap-5" onClick={() => {() => navigate(`/main`)}}>
+          <div className="flex items-center gap-5" onClick={() => navigate(`/main`)}>
             <RiHomeHeartLine className="text-2xl font-bold" />
             <div className="text-2xl">Main</div>
           </div>
 
-          <div className="flex items-center gap-5" onClick={() => {() => navigate(`/profile`)}}>
+          <div className="flex items-center gap-5" onClick={() => navigate(`/profile`)}>
             <FaUserAlt className="text-2xl font-bold" />
             <div className="text-2xl">Profile</div>
           </div>
