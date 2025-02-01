@@ -1,16 +1,10 @@
 import { Toaster } from "react-hot-toast"
 import DarkMode from "../components/DarkMode"
-import { useNavigate } from "react-router-dom";
-import { logout } from "../firebase/auth/login";
+import Sidebar from "../components/Sidebar";
+import Rightbar from "../components/Rightbar";
+import MainContent from "../components/MainContent";
 
 const Main = () => {
-    const navigate = useNavigate();
-
-    const handleLogout = async () => {
-        await logout();
-        navigate('/login');
-    };
-
     return (
         <div className="flex flex-col justify-center items-center">
             <Toaster position='top-right' />
@@ -18,13 +12,24 @@ const Main = () => {
             {/* Dark Mode and Logout */}
             <div className='flex gap-6 items-center mt-5'>
                 <DarkMode />
-
-                <button onClick={handleLogout} className="text-white bg-blue-500 hover:bg-blue-800 font-medium rounded-lg w-full text-sm p-2 mt-4 px-5 me-2">Log out</button>
             </div>
 
             {/* Main Container */}
-            <div className='flex flex-row justify-center items-center text-center w-full max-w-[1200px] mt-10'>
-                Main
+            <div className='flex justify-center items-center gap-10 w-full max-w-[1200px] mt-10'>
+                {/* Sidebar */}
+                <div className="hidden lg:block w-1/6 p-5 overflow-y-auto border-r border-black dark:border-white">
+                    <Sidebar />
+                </div>
+
+                {/* Content */}
+                <div className="w-4/6 p-5 flex justify-center overflow-y-auto">
+                    <MainContent />
+                </div>
+                
+                {/* Right bar */}
+                <div className="hidden lg:block w-1/6 p-5 overflow-y-auto border-l border-black dark:border-white">
+                    <Rightbar />
+                </div>
             </div>
         </div>
     )
