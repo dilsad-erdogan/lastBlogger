@@ -1,7 +1,15 @@
+import { useState } from "react";
 import { FaRegCommentDots, FaRegHeart } from "react-icons/fa";
 import { SlCalender } from "react-icons/sl";
+import EditProfile from "./EditProfile";
 
 const ProfileContent = () => {
+    const [openModal, setOpenModal] = useState(false);
+
+    const handleOpenModal = () => {
+        setOpenModal(true);
+    };
+
     return (
         <div className="w-full">
             {/* Text */}
@@ -35,7 +43,7 @@ const ProfileContent = () => {
 
                 {/* Button */}
                 <div className="w-full text-end">
-                <button className="text-white bg-blue-500 hover:bg-blue-800 disabled:bg-blue-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2">Edit Profile</button>
+                    <button className="text-white bg-blue-500 hover:bg-blue-800 disabled:bg-blue-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2" onClick={handleOpenModal}>Edit Profile</button>
                 </div>
             </div>
 
@@ -107,6 +115,8 @@ const ProfileContent = () => {
                     </div>
                 </div>
             </div>
+
+            <EditProfile isOpen={openModal} onClose={() => setOpenModal(false)} />
         </div>
     )
 }
