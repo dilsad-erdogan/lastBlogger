@@ -1,6 +1,9 @@
 import { FaRegCommentDots, FaRegHeart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const MainContent = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="w-full">
       {/* Text */}
@@ -17,7 +20,7 @@ const MainContent = () => {
       {/* Tweets area */}
       <div className="flex-1 text-left mt-5">
         {/* Tweet 1 */}
-        <div className="flex-1 text-left border-b-2 border-black dark:border-white mt-5">
+        <div className="flex-1 text-left border-b-2 border-black dark:border-white mt-5" onClick={() => navigate('/comment')}>
           <div className="flex gap-2 ml-5 items-center">
             <h1 className="text-lg font-bold">Alex</h1>
             <p className="text-sm">@alex</p>
@@ -39,7 +42,7 @@ const MainContent = () => {
         </div>
 
         {/* Tweet 2 */}
-        <div className="flex-1 text-left border-b-2 border-black dark:border-white mt-5">
+        <div className="flex-1 text-left border-b-2 border-black dark:border-white mt-5" onClick={() => navigate('/comment')}>
           <div className="flex gap-2 ml-5 items-center">
             <h1 className="text-lg font-bold">Alex</h1>
             <p className="text-sm">@alex</p>
@@ -61,7 +64,7 @@ const MainContent = () => {
         </div>
 
         {/* Tweet 3 */}
-        <div className="flex-1 text-left border-b-2 border-black dark:border-white mt-5">
+        <div className="flex-1 text-left border-b-2 border-black dark:border-white mt-5" onClick={() => navigate('/comment')}>
           <div className="flex gap-2 ml-5 items-center">
             <h1 className="text-lg font-bold">Alex</h1>
             <p className="text-sm">@alex</p>
