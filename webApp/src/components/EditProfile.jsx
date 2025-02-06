@@ -1,13 +1,26 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { updateUser } from '../firebase/auth/user';
 
-const EditProfile = ({ isOpen, onClose }) => {
+const EditProfile = ({ isOpen, onClose, user }) => {
     const [name, setName] = useState('');
     const [bio, setBio] = useState('');
 
     const handleClose = () => {
         onClose();
     };
+
+    const handleEdit = async () => {
+        await updateUser(user.id, name, bio);
+        onClose();
+    };
+
+    useEffect(() => {
+        if (user) {
+            setName(user.name || '');
+            setBio(user.bio || '');
+        }
+    }, [user]);
 
     if(!isOpen) return null;
 
@@ -33,7 +46,7 @@ const EditProfile = ({ isOpen, onClose }) => {
                 </div>
 
                 {/* Save Button */}
-                <button className="bg-gray-600 text-white px-4 py-2 rounded-md w-full mt-5">Save Change</button>
+                <button className="bg-gray-600 text-white px-4 py-2 rounded-md w-full mt-5" onClick={handleEdit}>Save Change</button>
             </div>
         </div>
     )
@@ -41,7 +54,8 @@ const EditProfile = ({ isOpen, onClose }) => {
 
 EditProfile.propTypes = {
     isOpen: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired
+    onClose: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired
 };
 
 export default EditProfile

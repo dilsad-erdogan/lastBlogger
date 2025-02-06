@@ -81,7 +81,7 @@ const ProfileContent = () => {
                 ))}
             </div>
 
-            <EditProfile isOpen={openModal} onClose={() => setOpenModal(false)} />
+            <EditProfile isOpen={openModal} onClose={() => setOpenModal(false)} user={user} />
         </div>
     )
 }
