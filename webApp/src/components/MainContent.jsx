@@ -18,7 +18,6 @@ const MainContent = () => {
   useEffect(() => {
     const loadUsers = async () => {
       const users = await fetchAllUsers();
-      console.log(users)
       dispatch(setUsers(users));
     };
 
