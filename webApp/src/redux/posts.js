@@ -12,8 +12,12 @@ const posts = createSlice({
             state.posts = action.payload;
             state.loading = false;
         },
+        fetchPostById(state, action) {
+            const post = state.posts.find((p) => p.id === action.payload);
+            return post || null;
+        },
     }
 });
 
-export const { fetchPosts } = posts.actions;
+export const { fetchPosts, fetchPostById } = posts.actions;
 export default posts.reducer

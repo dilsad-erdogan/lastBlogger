@@ -1,8 +1,38 @@
-import { FaRegCommentDots, FaRegHeart } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchPosts } from "../firebase/post/post";
+import { fetchAllUsers } from "../firebase/auth/user";
+import { fetchPosts as handleFetchPosts } from "../redux/posts";
+import { setUsers } from "../redux/user";
+import PostCard from "./PostCard";
 
 const MainContent = () => {
-  const navigate = useNavigate();
+  const { posts } = useSelector(state => state.posts);
+  console.log(posts)
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    fetchPostsThunk();
+  }, []);
+
+  useEffect(() => {
+    const loadUsers = async () => {
+      const users = await fetchAllUsers();
+      console.log(users)
+      dispatch(setUsers(users));
+    };
+
+    loadUsers();
+  }, [dispatch]);
+
+  const fetchPostsThunk = async () => {
+    try {
+      const posts = await fetchPosts();
+      dispatch(handleFetchPosts(posts));
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
 
   return (
     <div className="w-full">
@@ -19,71 +49,11 @@ const MainContent = () => {
 
       {/* Tweets area */}
       <div className="flex-1 text-left mt-5">
-        {/* Tweet 1 */}
-        <div className="flex-1 text-left border-b-2 border-black dark:border-white mt-5" onClick={() => navigate('/comment')}>
-          <div className="flex gap-2 ml-5 items-center">
-            <h1 className="text-lg font-bold">Alex</h1>
-            <p className="text-sm">@alex</p>
-            <p className="text-sm">4 seconds</p>
+        {posts.map((post) => (
+          <div key={post.id} className="p-2">
+            <PostCard post={post} />
           </div>
-
-          <div className="ml-8 mt-2">This is my tweet!</div>
-
-          <div className="flex gap-4 ml-5 my-5 items-center">
-            <div className="flex gap-1 items-center">
-              <FaRegCommentDots className="text-2xl font-bold hover:text-blue-500" />
-              <p className="text-sm">1</p>
-            </div>
-            <div className="flex gap-1 items-center">
-              <FaRegHeart className="text-2xl font-bold hover:text-red-500" />
-              <p className="text-sm">1</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Tweet 2 */}
-        <div className="flex-1 text-left border-b-2 border-black dark:border-white mt-5" onClick={() => navigate('/comment')}>
-          <div className="flex gap-2 ml-5 items-center">
-            <h1 className="text-lg font-bold">Alex</h1>
-            <p className="text-sm">@alex</p>
-            <p className="text-sm">4 seconds</p>
-          </div>
-
-          <div className="ml-8 mt-2">This is my tweet!</div>
-
-          <div className="flex gap-4 ml-5 my-5 items-center">
-            <div className="flex gap-1 items-center">
-              <FaRegCommentDots className="text-2xl font-bold hover:text-blue-500" />
-              <p className="text-sm">1</p>
-            </div>
-            <div className="flex gap-1 items-center">
-              <FaRegHeart className="text-2xl font-bold hover:text-red-500" />
-              <p className="text-sm">1</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Tweet 3 */}
-        <div className="flex-1 text-left border-b-2 border-black dark:border-white mt-5" onClick={() => navigate('/comment')}>
-          <div className="flex gap-2 ml-5 items-center">
-            <h1 className="text-lg font-bold">Alex</h1>
-            <p className="text-sm">@alex</p>
-            <p className="text-sm">4 seconds</p>
-          </div>
-
-          <div className="ml-8 mt-2">This is my tweet!</div>
-
-          <div className="flex gap-4 ml-5 my-5 items-center">
-            <div className="flex gap-1 items-center">
-              <FaRegCommentDots className="text-2xl font-bold hover:text-blue-500" />
-              <p className="text-sm">1</p>
-            </div>
-            <div className="flex gap-1 items-center">
-              <FaRegHeart className="text-2xl font-bold hover:text-red-500" />
-              <p className="text-sm">1</p>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   )
